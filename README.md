@@ -174,6 +174,7 @@ All build artifacts can be verified using standard SHA-256:
 919d16d720c800c9ca36e6c9843479b4aadd2438c4730bd1b593b1658b33e405  app-release.apk
 99b02ea8e9afea3d6e468c15e92e9c4635a442f385b94d78b61fb3918d271256  DCEAY Music App.exe
 3943962bca63aaae3ba404d9b75d581fbe10f0651937eb46e63357afb00ed718  DCEAY-Music-App-Windows-x64.zip
+400bfaf28f5e0169a0331d2f0b21bab3f3792a07e4e32ce4d436ad8d9b152054  DCEAY-Music-App-Setup.exe
 ```
 
 Verify locally using PowerShell:
