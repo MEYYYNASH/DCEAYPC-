@@ -1,0 +1,59 @@
+{
+  "name": "dceay-music-app",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "DCEAY Music App - Premium Cross-Platform Music Player inspired by Dotify",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node tests/app.test.js",
+    "electron:start": "electron .",
+    "build:electron": "vite build && electron-builder",
+    "cap:sync": "vite build && cap sync android",
+    "build:android": "node scripts/build-android.js",
+    "build:windows": "node scripts/build-windows.js"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "lucide-react": "^1.16.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/cli": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^34.0.0",
+    "electron-builder": "^25.1.8",
+    "vite": "^6.0.0"
+  },
+  "build": {
+    "appId": "com.dceay.musicapp",
+    "productName": "DCEAY Music App",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "electron/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "DCEAY Music App"
+    }
+  }
+}

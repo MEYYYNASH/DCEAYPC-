@@ -1,0 +1,122 @@
+name: Build & Release DCEAY Music App
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    name: Run Automated Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run Unit Tests
+        run: node tests/app.test.js
+
+  build-android:
+    name: Build Android APKs
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Copy Web Assets to Android
+        run: |
+          mkdir -p android/app/src/main/assets
+          cp -r app/* android/app/src/main/assets/
+
+      - name: Build Android APKs
+        working-directory: android
+        run: |
+          chmod +x gradlew || true
+          ./gradlew assembleDebug assembleRelease
+
+      - name: Upload Android Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apks
+          path: |
+            android/app/build/outputs/apk/debug/app-debug.apk
+            android/app/build/outputs/apk/release/app-release.apk
+
+  build-windows:
+    name: Build Windows Application
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publish Windows App
+        working-directory: windows
+        run: dotnet publish -c Release -o ../dist-windows
+
+      - name: Archive Windows Release
+        shell: pwsh
+        run: |
+          Compress-Archive -Path dist-windows/* -DestinationPath dist-windows/DCEAY-Music-App-Windows-x64.zip -Force
+
+      - name: Upload Windows Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-app
+          path: dist-windows/DCEAY-Music-App-Windows-x64.zip
+
+  release:
+    name: Create GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [build-android, build-windows]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Android Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: android-apks
+          path: release-assets/
+
+      - name: Download Windows Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-app
+          path: release-assets/
+
+      - name: Generate Checksums
+        working-directory: release-assets
+        run: sha256sum * > checksums.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-assets/*
+          generate_release_notes: true
+          draft: false
+          prerelease: false

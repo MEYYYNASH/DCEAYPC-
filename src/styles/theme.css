@@ -1,0 +1,95 @@
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Default Premium Dark (Charcoal & Deep Obsidian) */
+  --bg-primary: #090a0f;
+  --bg-secondary: #12141c;
+  --bg-card: rgba(24, 27, 38, 0.75);
+  --bg-card-hover: rgba(35, 39, 56, 0.85);
+  --bg-glass: rgba(18, 20, 30, 0.65);
+  --bg-glass-blur: 24px;
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(0, 240, 255, 0.4);
+
+  --text-main: #f0f2f5;
+  --text-secondary: #9aa0a6;
+  --text-muted: #5f6368;
+
+  --accent-primary: #00f0ff;
+  --accent-secondary: #ff007f;
+  --accent-glow: rgba(0, 240, 255, 0.25);
+  --accent-gradient: linear-gradient(135deg, #00f0ff 0%, #ff007f 100%);
+
+  --dynamic-bg-top: rgba(15, 23, 42, 0.85);
+  --dynamic-bg-bottom: rgba(9, 10, 15, 0.95);
+  --dynamic-glow: rgba(0, 240, 255, 0.15);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Cyberpunk Neon Theme */
+body.theme-cyberpunk {
+  --bg-primary: #050508;
+  --bg-secondary: #0d0e17;
+  --bg-card: rgba(20, 14, 30, 0.85);
+  --bg-card-hover: rgba(32, 20, 50, 0.95);
+  --bg-glass: rgba(15, 10, 25, 0.75);
+  --border-glass: rgba(255, 0, 255, 0.25);
+  --border-focus: #00ffff;
+  --text-main: #ffffff;
+  --text-secondary: #00ffff;
+  --text-muted: #bd00ff;
+  --accent-primary: #ff00ff;
+  --accent-secondary: #00ffff;
+  --accent-glow: rgba(255, 0, 255, 0.45);
+  --accent-gradient: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%);
+}
+
+/* Glassmorphism Theme */
+body.theme-glassmorphism {
+  --bg-primary: #0b0d14;
+  --bg-secondary: #14141e99;
+  --bg-card: rgba(20, 20, 30, 0.6);
+  --bg-card-hover: rgba(30, 30, 45, 0.7);
+  --bg-glass: rgba(20, 20, 30, 0.55);
+  --border-glass: rgba(255, 255, 255, 0.1);
+  --border-focus: rgba(255, 255, 255, 0.3);
+  --text-main: #e6e6e6;
+  --text-secondary: #a3a3b2;
+  --text-muted: #6e6e80;
+  --accent-primary: #7c4dff;
+  --accent-secondary: #00e5ff;
+  --accent-glow: rgba(124, 77, 255, 0.3);
+}
+
+/* OLED Pure Black Theme */
+body.theme-oled {
+  --bg-primary: #000000;
+  --bg-secondary: #050505;
+  --bg-card: #0a0a0a;
+  --bg-card-hover: #141414;
+  --bg-glass: rgba(0, 0, 0, 0.85);
+  --border-glass: #1f1f1f;
+  --border-focus: #333333;
+  --text-main: #ffffff;
+  --text-secondary: #888888;
+  --text-muted: #444444;
+  --accent-primary: #10b981;
+  --accent-secondary: #06b6d4;
+  --accent-glow: rgba(16, 185, 129, 0.25);
+}
+
+/* Reduced Motion Mode */
+body.reduced-motion * {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
